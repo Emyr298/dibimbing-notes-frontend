@@ -19,6 +19,9 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({
   } = useForm<CreateNoteFormValues>();
   
   const onSubmit = async ({ title, body }: CreateNoteFormValues) => {
+    title = title.replaceAll('"', '\\"');
+    body = body.replaceAll('"', '\\"');
+    
     try {
       const res = await fetchGraphQL(`
         mutation {
