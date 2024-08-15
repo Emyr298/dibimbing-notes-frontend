@@ -1,9 +1,46 @@
 'use client';
 
-import { ChevronLeftIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
-import { Card, CardHeader, CardBody, CardFooter, Heading, Stack, StackDivider, Box, Text, Flex, Spacer, Button, IconButton, Divider } from '@chakra-ui/react'
+import { NoteDetailCard } from '@/components/elements/NoteDetailCard';
+import { Note } from '@/types/notes';
+import { fetchGraphQL } from '@/utils/graphql';
+import { notifyError } from '@/utils/notification';
+import { ChevronLeftIcon } from '@chakra-ui/icons';
+import { Flex, Button, useToast, Spinner, Text } from '@chakra-ui/react'
+import { useParams, useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
 
 export const NoteDetailModule = () => {
+  const { noteId } = useParams<{ noteId: string }>();
+  const [note, setNote] = useState<Note | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const toast = useToast();
+  const router = useRouter();
+  
+  const getNote = useCallback(async () => {
+    if (!noteId) return;
+    
+    const filteredId = noteId.replaceAll('"', '\\"');
+    
+    try {
+      const res = await fetchGraphQL(`
+        {
+          note(id: "${filteredId}"){id, title, body, createdAt}
+        }
+      `);
+      if (res.errors || !res.data || !res.data.note) {
+        throw new Error();
+      }
+      setNote(res.data.note as Note);
+    } catch {
+      notifyError(toast, 'Error on fetching note');
+    }
+    setIsLoading(false);
+  }, [toast]);
+  
+  useEffect(() => {
+    getNote();
+  }, [getNote]);
+  
   return (
     <div>
       <Button
@@ -13,6 +50,9 @@ export const NoteDetailModule = () => {
         marginTop="1rem"
         marginLeft="1rem"
         marginBottom="0"
+        onClick={() => {
+          router.replace("/");
+        }}
       >
         Back
       </Button>
@@ -22,38 +62,30 @@ export const NoteDetailModule = () => {
         paddingX="2rem"
         paddingY="1rem"
       >
-        <Card
-          minWidth={[0, 400, 400, 800]}
-        >
-          <CardHeader>
-          <Flex
-            align="center"
-          >
-            <div>
-              <Heading size='md'>Libooran ke Sameria</Heading>
-              <Text fontSize="0.9rem" color={'gray'}>createdAt: ASDJASOIDJASODIJ</Text>
-            </div>
-            <Spacer />
-            <IconButton
-              variant="ghost"
-              colorScheme="teal"
-              aria-label="Delete"
-              icon={<EditIcon boxSize={5} />}
+        {
+          isLoading &&
+          <Spinner
+            marginTop="200px"
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='gray.200'
+            color='teal'
+            size='xl'
+          />
+        }
+        {
+          !isLoading && (
+            !note ?
+            <Text
+              marginTop="200px"
+            >
+              Catatan tidak ditemukan
+            </Text> :
+            <NoteDetailCard
+              note={note}
             />
-            <IconButton
-              variant="ghost"
-              colorScheme="red"
-              aria-label="Delete"
-              icon={<DeleteIcon boxSize={5} />}
-            />
-          </Flex>
-          </CardHeader>
-
-          <CardBody paddingTop={0}>
-            <Divider />
-            <Text paddingTop="1rem">ASDJIOASDIJOASJIOASDJIOJDASOI</Text>
-          </CardBody>
-        </Card>
+          )
+        }
       </Flex>
     </div>
   );

@@ -49,7 +49,7 @@ export const NoteCard: React.FC<NoteCardProps> = ({
         cursor: 'pointer',
       }}
       onClick={() => {
-        router.push(noteId);
+        router.replace(noteId);
       }}
     >
       <CardHeader paddingY="1rem">
