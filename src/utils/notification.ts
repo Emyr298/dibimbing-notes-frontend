@@ -6,6 +6,7 @@ export const notifySuccess = (toast: CreateToastFnReturn, msg: string) => {
     status: "success",
     duration: 9000,
     isClosable: true,
+    position: "bottom-right"
   });
 };
 
@@ -15,5 +16,6 @@ export const notifyError = (toast: CreateToastFnReturn, msg: string) => {
     status: "error",
     duration: 9000,
     isClosable: true,
+    position: "bottom-right"
   });
 }
