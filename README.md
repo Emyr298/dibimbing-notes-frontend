@@ -15,7 +15,7 @@ npm run dev
 ```
 
 ## Screenshots
-![image](https://github.com/user-attachments/assets/5879cc6e-a716-4904-ac36-fe1fae17e44a)
+![image](https://github.com/user-attachments/assets/2642c515-2b58-4a04-8c75-196c3f9c4445)
 ![image](https://github.com/user-attachments/assets/db6a9467-2b86-475b-a32d-27ca25701db8)
 ![image](https://github.com/user-attachments/assets/d6bcd874-bcd9-4879-9c58-750037f8db57)
 ![image](https://github.com/user-attachments/assets/53167e18-7166-428c-805f-f044f1fa0ebe)
