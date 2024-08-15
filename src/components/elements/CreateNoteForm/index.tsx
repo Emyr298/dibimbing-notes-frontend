@@ -19,13 +19,13 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({
   } = useForm<CreateNoteFormValues>();
   
   const onSubmit = async ({ title, body }: CreateNoteFormValues) => {
-    title = title.replaceAll('"', '\\"');
-    body = body.replaceAll('"', '\\"');
+    const filteredTitle = title.replaceAll('"', '\\"');
+    const filteredBody = body.replaceAll('"', '\\"');
     
     try {
       const res = await fetchGraphQL(`
         mutation {
-          createNote(title: "${title}", body: "${body}"){id, title, body, createdAt}
+          createNote(title: "${filteredTitle}", body: "${filteredBody}"){id, title, body, createdAt}
         }
       `);
       if (res.errors || !res.data || !res.data.createNote) {
