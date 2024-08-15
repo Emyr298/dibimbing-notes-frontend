@@ -45,6 +45,7 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({
   return (
     <>
       <Button
+        variant="ghost"
         colorScheme="teal"
         rightIcon={<AddIcon boxSize={3} />}
         onClick={onOpen}
