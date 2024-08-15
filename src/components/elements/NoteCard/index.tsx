@@ -1,9 +1,42 @@
 'use client';
 
 import { DeleteIcon } from "@chakra-ui/icons";
-import { Card, CardBody, CardFooter, CardHeader, Flex, Heading, IconButton, Text } from "@chakra-ui/react";
+import { Card, CardBody, CardFooter, CardHeader, Flex, Heading, IconButton, Text, useToast } from "@chakra-ui/react";
+import React, { useCallback } from "react";
+import { NoteCardProps } from "./interfaces";
+import { useRouter } from "next/navigation";
+import { fetchGraphQL } from "@/utils/graphql";
+import { notifyError, notifySuccess } from "@/utils/notification";
 
-export const NoteCard = () => {
+export const NoteCard: React.FC<NoteCardProps> = ({
+  noteId,
+  title,
+  body,
+  createdAt,
+  refreshNotes,
+}) => {
+  const router = useRouter();
+  const toast = useToast();
+  
+  const deleteNote = useCallback(async () => {
+    try {
+      const res = await fetchGraphQL(`
+        mutation {
+          deleteNote(id: "${noteId}"){id, title, body, createdAt}
+        }
+      `);
+      if (res.errors || !res.data) {
+        throw new Error();
+      }
+      if (refreshNotes) {
+        refreshNotes();
+      }
+      notifySuccess(toast, 'Successfully deleted notes');
+    } catch {
+      notifyError(toast, 'Error on fetching notes');
+    }
+  }, [toast, noteId, refreshNotes]);
+  
   return (
     <Card
       size="sm"
@@ -16,22 +49,31 @@ export const NoteCard = () => {
         cursor: 'pointer',
       }}
       onClick={() => {
-        console.log("LOL")
+        router.push(noteId);
       }}
     >
-      <CardHeader paddingY={'1rem'}>
-        <Heading fontSize={'x-large'}>Experiences at Vacation</Heading>
-        <Text color={'GrayText'} fontSize={'medium'}>Created At: 12 January, 2024</Text>
+      <CardHeader paddingY="1rem">
+        <Heading fontSize="x-large">{title}</Heading>
+        <Text color="GrayText" fontSize="medium">Created At: {createdAt}</Text>
       </CardHeader>
       <CardBody paddingTop={0}>
-        There was a time when I was a kid. There was a time when I was a kid. There was a time when I was a kid.
+        {body}
       </CardBody>
       <CardFooter paddingTop={0}>
         <Flex
           width="100%"
           justify="end"
         >
-          <IconButton variant="ghost" colorScheme="red" aria-label="Delete Note" icon={<DeleteIcon />} />
+          <IconButton
+            variant="ghost"
+            colorScheme="red"
+            aria-label="Delete Note"
+            icon={<DeleteIcon />}
+            onClick={(event) => {
+              event.stopPropagation();
+              deleteNote();
+            }}
+          />
         </Flex>
       </CardFooter>
     </Card>
