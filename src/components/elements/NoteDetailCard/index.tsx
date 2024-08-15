@@ -2,6 +2,7 @@ import React from "react";
 import { NoteDetailCardProps } from "./interface";
 import { Card, CardHeader, CardBody, Heading, Text, Flex, Spacer, IconButton, Divider } from '@chakra-ui/react'
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { EditNoteForm } from "../EditNoteForm";
 
 export const NoteDetailCard: React.FC<NoteDetailCardProps> = ({
   note,
@@ -20,11 +21,9 @@ export const NoteDetailCard: React.FC<NoteDetailCardProps> = ({
           <Text fontSize="0.9rem" color={'gray'}>createdAt: {note.createdAt}</Text>
         </div>
         <Spacer />
-        <IconButton
-          variant="ghost"
-          colorScheme="teal"
-          aria-label="Delete"
-          icon={<EditIcon boxSize={5} />}
+        <EditNoteForm
+          note={note}
+          refreshNotes={refreshNotes}
         />
         <IconButton
           variant="ghost"

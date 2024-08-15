@@ -83,6 +83,7 @@ export const NoteDetailModule = () => {
             </Text> :
             <NoteDetailCard
               note={note}
+              refreshNotes={getNote}
             />
           )
         }
