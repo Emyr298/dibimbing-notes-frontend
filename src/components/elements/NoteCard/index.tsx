@@ -33,7 +33,7 @@ export const NoteCard: React.FC<NoteCardProps> = ({
       }
       notifySuccess(toast, 'Successfully deleted notes');
     } catch {
-      notifyError(toast, 'Error on fetching notes');
+      notifyError(toast, 'Error on deleting notes');
     }
   }, [toast, noteId, refreshNotes]);
   
