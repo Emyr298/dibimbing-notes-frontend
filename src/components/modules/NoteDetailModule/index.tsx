@@ -35,7 +35,7 @@ export const NoteDetailModule = () => {
       notifyError(toast, 'Error on fetching note');
     }
     setIsLoading(false);
-  }, [toast]);
+  }, [toast, noteId]);
   
   useEffect(() => {
     getNote();
