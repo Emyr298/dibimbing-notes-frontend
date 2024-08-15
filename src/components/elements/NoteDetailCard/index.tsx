@@ -19,23 +19,30 @@ export const NoteDetailCard: React.FC<NoteDetailCardProps> = ({
       <CardHeader>
       <Flex
         align="center"
+        direction={["column", "row"]}
       >
         <div>
-          <Heading size='md'>{ note.title }</Heading>
+          <Heading size='md' wordBreak="break-word">{ note.title }</Heading>
           <Text fontSize="0.9rem" color={'gray'}>Created At: {note.createdAt}</Text>
         </div>
         <Spacer />
-        <EditNoteForm
-          note={note}
-          refreshNotes={refreshNotes}
-        />
-        <DeleteNoteConfirm
-          noteId={note.id}
-          afterDelete={() => {
-            router.replace("/");
-          }}
-          boxSize={5}
-        />
+        <Flex
+          width={["100%", "fit-content"]}
+          justify="end"
+          marginTop={["1rem", "0"]}
+        >
+          <EditNoteForm
+            note={note}
+            refreshNotes={refreshNotes}
+          />
+          <DeleteNoteConfirm
+            noteId={note.id}
+            afterDelete={() => {
+              router.replace("/");
+            }}
+            boxSize={5}
+          />
+        </Flex>
       </Flex>
       </CardHeader>
       <CardBody paddingTop={0}>
