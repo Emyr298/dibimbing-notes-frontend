@@ -1,7 +1,6 @@
+import { Note } from "@/types/notes"
+
 export interface NoteCardProps {
-  noteId: string
-  title: string
-  body: string
-  createdAt: string
+  note: Note
   refreshNotes?: () => void | Promise<void>
 };

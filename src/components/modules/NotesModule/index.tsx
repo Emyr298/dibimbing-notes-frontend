@@ -71,10 +71,7 @@ export const NotesModule = () => {
               (notes.map((note) => (
                 <NoteCard
                   key={note.id}
-                  noteId={note.id}
-                  title={note.title}
-                  body={note.body}
-                  createdAt={note.createdAt}
+                  note={note}
                   refreshNotes={getNotes}
                 />
               )))

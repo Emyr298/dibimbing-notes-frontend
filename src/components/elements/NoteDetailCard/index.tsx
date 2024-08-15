@@ -3,11 +3,15 @@ import { NoteDetailCardProps } from "./interface";
 import { Card, CardHeader, CardBody, Heading, Text, Flex, Spacer, IconButton, Divider } from '@chakra-ui/react'
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { EditNoteForm } from "../EditNoteForm";
+import { DeleteNoteConfirm } from "../DeleteNoteConfirm";
+import { useRouter } from "next/navigation";
 
 export const NoteDetailCard: React.FC<NoteDetailCardProps> = ({
   note,
   refreshNotes
 }) => {
+  const router = useRouter();
+  
   return (
     <Card
       minWidth={[0, 400, 400, 800]}
@@ -25,11 +29,12 @@ export const NoteDetailCard: React.FC<NoteDetailCardProps> = ({
           note={note}
           refreshNotes={refreshNotes}
         />
-        <IconButton
-          variant="ghost"
-          colorScheme="red"
-          aria-label="Delete"
-          icon={<DeleteIcon boxSize={5} />}
+        <DeleteNoteConfirm
+          noteId={note.id}
+          afterDelete={() => {
+            router.replace("/");
+          }}
+          boxSize={5}
         />
       </Flex>
       </CardHeader>

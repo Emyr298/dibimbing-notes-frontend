@@ -7,12 +7,10 @@ import { NoteCardProps } from "./interfaces";
 import { useRouter } from "next/navigation";
 import { fetchGraphQL } from "@/utils/graphql";
 import { notifyError, notifySuccess } from "@/utils/notification";
+import { DeleteNoteConfirm } from "../DeleteNoteConfirm";
 
 export const NoteCard: React.FC<NoteCardProps> = ({
-  noteId,
-  title,
-  body,
-  createdAt,
+  note,
   refreshNotes,
 }) => {
   const router = useRouter();
@@ -22,7 +20,7 @@ export const NoteCard: React.FC<NoteCardProps> = ({
     try {
       const res = await fetchGraphQL(`
         mutation {
-          deleteNote(id: "${noteId}"){id, title, body, createdAt}
+          deleteNote(id: "${note.id}"){id, title, body, createdAt}
         }
       `);
       if (res.errors || !res.data) {
@@ -35,7 +33,7 @@ export const NoteCard: React.FC<NoteCardProps> = ({
     } catch {
       notifyError(toast, 'Error on deleting notes');
     }
-  }, [toast, noteId, refreshNotes]);
+  }, [toast, note.id, refreshNotes]);
   
   return (
     <Card
@@ -49,30 +47,25 @@ export const NoteCard: React.FC<NoteCardProps> = ({
         cursor: 'pointer',
       }}
       onClick={() => {
-        router.replace(noteId);
+        router.replace(note.id);
       }}
     >
       <CardHeader paddingY="1rem">
-        <Heading fontSize="x-large">{title}</Heading>
-        <Text color="GrayText" fontSize="medium">Created At: {createdAt}</Text>
+        <Heading fontSize="x-large">{note.title}</Heading>
+        <Text color="GrayText" fontSize="medium">Created At: {note.createdAt}</Text>
       </CardHeader>
       <CardBody paddingTop={0}>
-        {body}
+        {note.body}
       </CardBody>
       <CardFooter paddingTop={0}>
         <Flex
           width="100%"
           justify="space-between"
         >
-          <IconButton
-            variant="ghost"
-            colorScheme="red"
-            aria-label="Delete Note"
-            icon={<DeleteIcon />}
-            onClick={(event) => {
-              event.stopPropagation();
-              deleteNote();
-            }}
+          <DeleteNoteConfirm
+            noteId={note.id}
+            stopPropagation={true}
+            afterDelete={refreshNotes}
           />
           <IconButton
             variant="ghost"
