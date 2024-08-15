@@ -40,7 +40,7 @@ export const NoteDetailCard: React.FC<NoteDetailCardProps> = ({
       </CardHeader>
       <CardBody paddingTop={0}>
         <Divider />
-        <Text paddingTop="1rem">{note.body}</Text>
+        <Text paddingTop="1rem" whiteSpace="pre-line">{note.body}</Text>
       </CardBody>
     </Card>
   );

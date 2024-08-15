@@ -25,7 +25,7 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({
     try {
       const res = await fetchGraphQL(`
         mutation {
-          createNote(title: "${filteredTitle}", body: "${filteredBody}"){id, title, body, createdAt}
+          createNote(title: """${filteredTitle}""", body: """${filteredBody}"""){id, title, body, createdAt}
         }
       `);
       if (res.errors || !res.data || !res.data.createNote) {

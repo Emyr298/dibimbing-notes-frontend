@@ -54,7 +54,7 @@ export const NoteCard: React.FC<NoteCardProps> = ({
         <Heading fontSize="x-large">{note.title}</Heading>
         <Text color="GrayText" fontSize="medium">Created At: {note.createdAt}</Text>
       </CardHeader>
-      <CardBody paddingTop={0}>
+      <CardBody paddingTop={0} whiteSpace="pre-line">
         {note.body}
       </CardBody>
       <CardFooter paddingTop={0}>

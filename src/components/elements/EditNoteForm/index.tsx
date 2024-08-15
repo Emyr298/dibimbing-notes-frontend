@@ -32,7 +32,7 @@ export const EditNoteForm: React.FC<EditNoteFormProps> = ({
     try {
       const res = await fetchGraphQL(`
         mutation {
-          updateNote(id: "${note.id}", title: "${filteredTitle}", body: "${filteredBody}"){id, title, body, createdAt}
+          updateNote(id: "${note.id}", title: """${filteredTitle}""", body: """${filteredBody}"""){id, title, body, createdAt}
         }
       `);
       if (res.errors || !res.data || !res.data.updateNote) {
