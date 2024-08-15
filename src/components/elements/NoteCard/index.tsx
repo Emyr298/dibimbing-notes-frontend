@@ -1,6 +1,6 @@
 'use client';
 
-import { DeleteIcon } from "@chakra-ui/icons";
+import { ChevronRightIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Card, CardBody, CardFooter, CardHeader, Flex, Heading, IconButton, Text, useToast } from "@chakra-ui/react";
 import React, { useCallback } from "react";
 import { NoteCardProps } from "./interfaces";
@@ -62,7 +62,7 @@ export const NoteCard: React.FC<NoteCardProps> = ({
       <CardFooter paddingTop={0}>
         <Flex
           width="100%"
-          justify="end"
+          justify="space-between"
         >
           <IconButton
             variant="ghost"
@@ -73,6 +73,12 @@ export const NoteCard: React.FC<NoteCardProps> = ({
               event.stopPropagation();
               deleteNote();
             }}
+          />
+          <IconButton
+            variant="ghost"
+            colorScheme="teal"
+            aria-label="Visit Note"
+            icon={<ChevronRightIcon />}
           />
         </Flex>
       </CardFooter>
