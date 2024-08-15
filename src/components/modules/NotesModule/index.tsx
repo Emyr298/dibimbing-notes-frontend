@@ -40,6 +40,7 @@ export const NotesModule = () => {
         >
           <NotesInfo
             notesCount={notes && notes.length > 0 ? notes.length : null}
+            refreshNotes={getNotes}
           />
           <Wrap
             justify="center"

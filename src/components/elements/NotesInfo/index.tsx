@@ -1,12 +1,13 @@
 'use client';
 
-import { AddIcon } from "@chakra-ui/icons";
-import { Button, Flex, Spacer, Text } from "@chakra-ui/react";
+import { Flex, Spacer, Text } from "@chakra-ui/react";
 import React from "react";
 import { NotesInfoProps } from "./interfaces";
+import { CreateNoteForm } from "../CreateNoteForm";
 
 export const NotesInfo: React.FC<NotesInfoProps> = ({
   notesCount,
+  refreshNotes,
 }) => {
   const message = typeof notesCount === 'number' ? `Showing ${notesCount} Notes` : '';
   
@@ -19,12 +20,9 @@ export const NotesInfo: React.FC<NotesInfoProps> = ({
         <Text fontSize="0.9rem" color={'gray'} >{message}</Text>
       </div>
       <Spacer />
-      <Button
-        colorScheme="teal"
-        rightIcon={<AddIcon boxSize={3} />}
-      >
-        Create
-      </Button>
+      <CreateNoteForm
+        refreshNotes={refreshNotes}
+      />
     </Flex>
   );
 };
