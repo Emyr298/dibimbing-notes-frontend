@@ -1,6 +1,6 @@
 'use client';
 
-import { Flex, Spacer, Text } from "@chakra-ui/react";
+import { Flex, Heading, Spacer, Text } from "@chakra-ui/react";
 import React from "react";
 import { NotesInfoProps } from "./interfaces";
 import { CreateNoteForm } from "../CreateNoteForm";
@@ -16,7 +16,7 @@ export const NotesInfo: React.FC<NotesInfoProps> = ({
       align="center"
     >
       <div>
-        <h1 className="text-2xl font-bold">My Notes</h1>
+        <Heading fontSize="1.5rem" paddingBottom="0.5rem">My Notes</Heading>
         <Text fontSize="0.9rem" color={'gray'} >{message}</Text>
       </div>
       <Spacer />

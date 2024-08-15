@@ -33,52 +33,54 @@ export const NotesModule = () => {
   }, [getNotes]);
   
   return (
-    <div className="flex flex-col items-center">
-      <div className="w-full p-[24px]">
-        <Flex
-          direction="column"
+    <Flex
+      direction="column"
+      align="center"
+    >
+      <Flex
+        direction="column"
+        padding={["1rem", "2rem"]}
+      >
+        <NotesInfo
+          notesCount={notes && notes.length > 0 ? notes.length : null}
+          refreshNotes={getNotes}
+        />
+        <Wrap
+          justify="center"
+          paddingTop="1rem"
+          spacing={"1rem"}
         >
-          <NotesInfo
-            notesCount={notes && notes.length > 0 ? notes.length : null}
-            refreshNotes={getNotes}
-          />
-          <Wrap
-            justify="center"
-            paddingTop="1rem"
-            spacing={"1rem"}
-          >
-            {
-              !notes &&
-              <Spinner
-                marginTop="200px"
-                thickness='4px'
-                speed='0.65s'
-                emptyColor='gray.200'
-                color='teal'
-                size='xl'
+          {
+            !notes &&
+            <Spinner
+              marginTop="200px"
+              thickness='4px'
+              speed='0.65s'
+              emptyColor='gray.200'
+              color='teal'
+              size='xl'
+            />
+          }
+          {
+            notes && notes.length === 0 &&
+            <Text
+              marginTop="200px"
+            >
+              Tidak ada catatan
+            </Text>
+          }
+          {
+            notes && notes.length > 0 &&
+            (notes.map((note) => (
+              <NoteCard
+                key={note.id}
+                note={note}
+                refreshNotes={getNotes}
               />
-            }
-            {
-              notes && notes.length === 0 &&
-              <Text
-                marginTop="200px"
-              >
-                Tidak ada catatan
-              </Text>
-            }
-            {
-              notes && notes.length > 0 &&
-              (notes.map((note) => (
-                <NoteCard
-                  key={note.id}
-                  note={note}
-                  refreshNotes={getNotes}
-                />
-              )))
-            }
-          </Wrap>
-        </Flex>
-      </div>
-    </div>
+            )))
+          }
+        </Wrap>
+      </Flex>
+    </Flex>
   );
 };
