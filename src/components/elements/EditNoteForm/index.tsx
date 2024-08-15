@@ -74,6 +74,7 @@ export const EditNoteForm: React.FC<EditNoteFormProps> = ({
                   placeholder='The title of your note'
                   {...register('title', {
                     required: 'This is required',
+                    maxLength: { value: 64, message: 'Maximum length should be 64' },
                   })}
                 />
                 <FormErrorMessage>
