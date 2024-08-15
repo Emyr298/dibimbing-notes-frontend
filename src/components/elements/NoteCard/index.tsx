@@ -38,8 +38,7 @@ export const NoteCard: React.FC<NoteCardProps> = ({
   return (
     <Card
       size="sm"
-      flexGrow={1}
-      maxWidth={400}
+      width={[280, 280, 280, 350]}
       transitionDuration="0.2s"
       transitionTimingFunction="ease-in-out"
       _hover={{

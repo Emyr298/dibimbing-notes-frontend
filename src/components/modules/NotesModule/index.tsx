@@ -38,6 +38,7 @@ export const NotesModule = () => {
       align="center"
     >
       <Flex
+        width="100%"
         direction="column"
         padding={["1rem", "2rem"]}
       >
