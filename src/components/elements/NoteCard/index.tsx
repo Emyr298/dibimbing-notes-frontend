@@ -51,7 +51,7 @@ export const NoteCard: React.FC<NoteCardProps> = ({
     >
       <CardHeader paddingY="1rem">
         <Heading fontSize="x-large">{note.title}</Heading>
-        <Text color="GrayText" fontSize="medium">Created At: {note.createdAt}</Text>
+        <Text color="GrayText" fontSize="medium">Created At: {(new Date(note.createdAt)).toLocaleString()}</Text>
       </CardHeader>
       <CardBody paddingTop={0} whiteSpace="pre-line">
         <Text noOfLines={4}>{note.body}</Text>

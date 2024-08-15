@@ -23,7 +23,7 @@ export const NoteDetailCard: React.FC<NoteDetailCardProps> = ({
       >
         <div>
           <Heading size='md' wordBreak="break-word">{ note.title }</Heading>
-          <Text fontSize="0.9rem" color={'gray'}>Created At: {note.createdAt}</Text>
+          <Text fontSize="0.9rem" color={'gray'}>Created At: {(new Date(note.createdAt)).toLocaleString()}</Text>
         </div>
         <Spacer />
         <Flex
