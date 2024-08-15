@@ -1,11 +1,14 @@
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
 export const NavBar = () => {
   return (
-    <div className="w-full p-3 bg-primary shadow-md">
-      <Link href="/" className="font-bold text-xl">
-        Notes<span className="text-white">App</span>
-      </Link>
-    </div>
+    <Box width="100%" background="teal.300" padding="0.9rem" boxShadow="md" position="fixed" zIndex="50">
+      <Heading fontSize="1.3rem">
+        <Link href="/">
+          Notes<Text as="span" color="white">App</Text>
+        </Link>
+      </Heading>
+    </Box>
   );
 };
