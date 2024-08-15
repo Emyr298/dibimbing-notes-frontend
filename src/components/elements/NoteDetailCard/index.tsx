@@ -22,7 +22,7 @@ export const NoteDetailCard: React.FC<NoteDetailCardProps> = ({
       >
         <div>
           <Heading size='md'>{ note.title }</Heading>
-          <Text fontSize="0.9rem" color={'gray'}>createdAt: {note.createdAt}</Text>
+          <Text fontSize="0.9rem" color={'gray'}>Created At: {note.createdAt}</Text>
         </div>
         <Spacer />
         <EditNoteForm
